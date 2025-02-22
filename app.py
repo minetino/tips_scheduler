@@ -78,6 +78,8 @@ def main():
         logger.info(f'Attempting to send command payload {payload}')
         r = requests.post(url, data=json.dumps(payload), headers=headers)
         logger.info(f'Received {r.status_code} status code')
+        # Logging done lets Pterodactyl know that it's ready
+        logger.info('Done')
         sys.exit(0)
     except requests.exceptions.RequestException as e:
         logger.error('e')
