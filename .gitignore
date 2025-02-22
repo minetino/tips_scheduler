@@ -172,3 +172,6 @@ cython_debug/
 
 # Ignore .env
 .env
+
+# Logs folder
+logs/
