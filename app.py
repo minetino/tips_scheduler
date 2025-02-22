@@ -67,11 +67,12 @@ def get_tips_json(file_path: str) -> list:
         logger.error(f'Invalid JSON format in: {file_path}')
         sys.exit()
 
+
 def main():
     tips = (get_tips_json(tips_file_path))['tips']
     url = f'{pt_panel_url}/api/client/servers/{pt_panel_srv}/command'
     headers = {'Content-Type': 'application/json', 'Authorization': f'Bearer {pt_panel_api}'}
-    payload = {'command':f'say {random.choice(tips)}'}
+    payload = {'command': f'say {random.choice(tips)}'}
 
     try:
         logger.info(f'Attempting to send command payload {payload}')
@@ -80,5 +81,6 @@ def main():
     except requests.exceptions.RequestException as e:
         logger.error('e')
         raise SystemExit(e)
+
 
 main()
