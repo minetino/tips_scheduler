@@ -43,15 +43,15 @@ logger.addHandler(handler)
 
 if not pt_panel_url:
     logger.error('PTERODACTYL_PANEL_URL was not provided. Exiting.')
-    sys.exit()
+    sys.exit(1)
 
 if not pt_panel_api:
     logger.error('PTERODACTYL_PANEL_API_KEY was not provided. Exiting.')
-    sys.exit()
+    sys.exit(1)
 
 if not pt_panel_srv:
     logger.error('PTERODACTYL_SERVER_UUID was not provided. Exiting.')
-    sys.exit()
+    sys.exit(1)
 
 
 def get_tips_json(file_path: str) -> list:
@@ -62,10 +62,10 @@ def get_tips_json(file_path: str) -> list:
             return data
     except FileNotFoundError:
         logger.error(f'File not found: {file_path}')
-        sys.exit()
+        sys.exit(1)
     except json.JSONDecodeError:
         logger.error(f'Invalid JSON format in: {file_path}')
-        sys.exit()
+        sys.exit(1)
 
 
 def main():
@@ -78,6 +78,7 @@ def main():
         logger.info(f'Attempting to send command payload {payload}')
         r = requests.post(url, data=json.dumps(payload), headers=headers)
         logger.info(f'Received {r.status_code} status code')
+        sys.exit(0)
     except requests.exceptions.RequestException as e:
         logger.error('e')
         raise SystemExit(e)
